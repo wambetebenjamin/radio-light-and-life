@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Laptop, Smartphone, Radio as RadioIcon, ArrowRight } from "lucide-react";
+import { Laptop, Smartphone, Radio as RadioIcon, ArrowRight, GraduationCap, Megaphone, HeartHandshake } from "lucide-react";
 import { api, mediaUrl } from "../lib/api";
 import ListenLiveButton from "../components/ListenLiveButton";
+import FMDial from "../components/FMDial";
 import PresenterCard from "../components/PresenterCard";
 import NewsCard from "../components/NewsCard";
 import TiltCard from "../components/TiltCard";
@@ -95,12 +96,21 @@ export default function Home({ station }) {
             </motion.h1>
 
             <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+              className="font-script text-3xl sm:text-4xl text-gold mt-2"
+            >
+              {station?.tagline || "Changing Lives"}, one broadcast at a time
+            </motion.p>
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
               className="mt-4 text-cream/85 italic max-w-md leading-relaxed"
             >
-              {station?.tagline || "Changing Lives"} on {station?.frequency}. We broadcast hope,
+              Broadcasting on {station?.frequency}. We broadcast hope,
               music, and community from the heart of {station?.city} &mdash; request a song,
               catch the schedule, and listen from anywhere.
             </motion.p>
@@ -147,7 +157,14 @@ export default function Home({ station }) {
           </div>
 
           {/* Right column: kept empty of extra UI, like the reference — the photo shows through, button floats bottom-right */}
-          <div className="hidden lg:block" aria-hidden="true" />
+          <motion.div
+            className="hidden lg:flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+          >
+            <FMDial frequency={station?.frequency?.split(" ")[0] || "107.3"} city={station?.city?.split(",")[0] || "Kericho"} />
+          </motion.div>
         </div>
 
         <motion.div
@@ -175,6 +192,46 @@ export default function Home({ station }) {
       <OnAirBar current={now?.current} next={now?.next} />
 
       <WordOfTheDay />
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
+        <div className="text-center mb-10">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-clay">Join the family</p>
+          <h2 className="font-display italic text-4xl font-extrabold text-forest mt-2">Get Involved</h2>
+          <p className="mt-2 text-ink/60 max-w-md mx-auto">There are many ways to become part of the Light &amp; Life story.</p>
+        </div>
+        <div className="grid sm:grid-cols-3 gap-6">
+          {[
+            { Icon: GraduationCap, title: "Internships", desc: "Passionate about radio or media? Apply for a hands-on internship with our team.", to: "/apply", cta: "Apply now" },
+            { Icon: Megaphone, title: "Advertise", desc: "Reach listeners across Kericho. Grow your business with a radio slot on 107.3.", to: "/apply", cta: "Get rates" },
+            { Icon: HeartHandshake, title: "Reach Out", desc: "Song requests, prayer requests, testimonies, or just a hello, we'd love to hear it.", to: "/contact", cta: "Contact us" },
+          ].map(({ Icon, title, desc, to, cta }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: "easeOut" }}
+            >
+              <TiltCard>
+                <div className="bg-white/70 rounded-2xl border border-forest/10 p-8 text-center h-full relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-gold to-clay" />
+                  <div className="h-16 w-16 rounded-full bg-gradient-to-br from-forest to-forest-light mx-auto flex items-center justify-center text-gold">
+                    <Icon size={28} />
+                  </div>
+                  <p className="font-display italic text-xl font-bold mt-5">{title}</p>
+                  <p className="text-sm text-ink/60 mt-2 leading-relaxed">{desc}</p>
+                  <Link
+                    to={to}
+                    className="inline-flex items-center gap-1.5 mt-5 text-sm font-medium text-clay border border-clay/40 rounded-full px-4 py-1.5 hover:bg-clay hover:text-cream transition-colors"
+                  >
+                    {cta} <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {presenters.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 pt-4">

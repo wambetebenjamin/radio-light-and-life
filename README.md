@@ -108,11 +108,12 @@ A free custom domain name (like `radiolightandlife.co.ke`) doesn't really exist 
 
 ## Design system
 
-- Fonts: **Oswald** (display/headings, italic, bold, condensed uppercase), **Open Sans** (body), **Space Mono** (timestamps)
+- Fonts: **Oswald** (display/headings, italic, bold, condensed uppercase), **Open Sans** (body), **Dancing Script** (tagline accents, matching the logo's cursive), **Space Mono** (timestamps)
 - Colors: brand palette from the actual station logo — blue `#1A3FA0`, yellow `#FFD400`, red `#D32F2F`, black `#0D0D0D`
 - The real station logo (`frontend/public/logo.png`) is used in the nav bar and footer — replace this file directly to update it everywhere at once
 - The Home page hero rotates through 3 background photos with a smooth crossfade every 6 seconds, plus mouse-tracked parallax depth and clickable dot indicators to jump between them
-- A floating pulsing "Listen Live" button with real 3D perspective tilt on hover is the actual play control
+- A 3D rotating FM dial in the hero (real CSS 3D transforms, not an image) and a perpetually-swaying 3D station ID card on the About page
+- A "Get Involved" section on Home linking to the real Apply and Contact pages (Internships, Advertise, Reach Out)
 - A sticky three-panel bar underneath: **Playing Now** (live schedule data), **Up Next** (live schedule data), and **Request a Song** (a real working form — submissions land in the "Song Requests" admin tab)
 - Every page background uses a subtle brand-colored gradient instead of a flat solid color
 - Cards use a 3D tilt-on-hover effect (`TiltCard`) plus layered shadows for real depth; most pages now have scroll-triggered entrance animations on their content (About's images/stats, Schedule's timeline entries, Apply/Contact forms)
