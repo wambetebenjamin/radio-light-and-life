@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Oswald", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+  --font-mono: "Space Mono", monospace;
+
+  /* Brand palette from the actual station logo */
+  --color-ink: #0d0d0d;         /* black */
+  --color-forest: #1a3fa0;      /* blue - primary */
+  --color-forest-light: #2a54c9;/* lighter blue for hover states */
+  --color-gold: #ffd400;        /* yellow */
+  --color-gold-light: #ffe45c;  /* lighter yellow */
+  --color-clay: #d32f2f;        /* red - secondary accent */
+  --color-cream: #f7f2e7;
+  --color-mist: #dde3ee;
+  --color-obsidian: #0d0d0d;    /* black - dark sections */
+  --color-obsidian-light: #1a1a1a;
+  --color-upnext: #d32f2f;
+  --color-barbg: #141414;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  background-color: var(--color-cream);
+  background-image:
+    radial-gradient(circle 500px at 8% 0%, rgba(26, 63, 160, 0.06) 0%, transparent 100%),
+    radial-gradient(circle 420px at 96% 22%, rgba(255, 212, 0, 0.08) 0%, transparent 100%),
+    radial-gradient(circle 380px at 12% 78%, rgba(211, 47, 47, 0.05) 0%, transparent 100%),
+    linear-gradient(180deg, var(--color-cream) 0%, var(--color-mist) 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.shadow-lift {
+  box-shadow:
+    0 1px 2px rgba(13, 13, 13, 0.08),
+    0 8px 20px -6px rgba(13, 13, 13, 0.18),
+    0 20px 40px -12px rgba(26, 63, 160, 0.2);
+}
+
+/* Bokeh light effect in brand colors, drifting slowly for continuous depth */
+.bokeh-glow {
+  background:
+    radial-gradient(circle 100px at 72% 22%, rgba(255, 212, 0, 0.32) 0%, transparent 100%),
+    radial-gradient(circle 70px at 85% 40%, rgba(211, 47, 47, 0.26) 0%, transparent 100%),
+    radial-gradient(circle 50px at 65% 55%, rgba(26, 63, 160, 0.3) 0%, transparent 100%),
+    radial-gradient(circle 110px at 90% 18%, rgba(255, 212, 0, 0.2) 0%, transparent 100%),
+    radial-gradient(circle 60px at 58% 72%, rgba(211, 47, 47, 0.2) 0%, transparent 100%),
+    radial-gradient(circle 45px at 92% 62%, rgba(26, 63, 160, 0.28) 0%, transparent 100%),
+    radial-gradient(circle 80px at 52% 32%, rgba(255, 212, 0, 0.16) 0%, transparent 100%),
+    radial-gradient(circle 35px at 78% 75%, rgba(211, 47, 47, 0.22) 0%, transparent 100%);
+  animation: bokeh-drift 14s ease-in-out infinite alternate;
+}
+@keyframes bokeh-drift {
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(-14px, 10px, 0); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(196, 30, 138, 0.45); }
+  70% { box-shadow: 0 0 0 18px rgba(196, 30, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(196, 30, 138, 0); }
+}
+.pulse-glow { animation: pulse-glow 2.5s infinite; }
+
+.perspective-1000 { perspective: 1000px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
